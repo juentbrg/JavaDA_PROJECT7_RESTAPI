@@ -1,5 +1,6 @@
 package com.nnk.springboot.domain;
 
+import com.nnk.springboot.record.CurvePointRecord;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,4 +28,12 @@ public class CurvePoint {
     private Double value;
 
     private LocalDateTime creationDate;
+
+    public CurvePoint(CurvePointRecord.Api.CurvePointRequest curvePointRequest) {
+        this.curveId = curvePointRequest.curveId();
+        this.asOfDate = curvePointRequest.asOfDate();
+        this.term = curvePointRequest.term();
+        this.value = curvePointRequest.value();
+        this.creationDate = LocalDateTime.now();
+    }
 }

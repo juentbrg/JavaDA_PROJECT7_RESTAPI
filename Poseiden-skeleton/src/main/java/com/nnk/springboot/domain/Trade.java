@@ -1,5 +1,6 @@
 package com.nnk.springboot.domain;
 
+import com.nnk.springboot.record.TradeRecord;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
@@ -70,4 +71,27 @@ public class Trade {
 
     @Size(max = 125)
     private String side;
+
+    public Trade(TradeRecord.Api.TradeRequest tradeRequest) {
+        this.account = tradeRequest.account();
+        this.type = tradeRequest.type();
+        this.buyQuantity = tradeRequest.buyQuantity();
+        this.sellQuantity = tradeRequest.sellQuantity();
+        this.buyPrice = tradeRequest.buyPrice();
+        this.sellPrice = tradeRequest.sellPrice();
+        this.tradeDate = tradeRequest.tradeDate();
+        this.security = tradeRequest.security();
+        this.status = tradeRequest.status();
+        this.trader = tradeRequest.trader();
+        this.benchmark = tradeRequest.benchmark();
+        this.book = tradeRequest.book();
+        this.creationName = tradeRequest.creationName();
+        this.creationDate = LocalDateTime.now();
+        this.revisionName = tradeRequest.revisionName();
+        this.revisionDate = tradeRequest.revisionDate();
+        this.dealName = tradeRequest.dealName();
+        this.dealType = tradeRequest.dealType();
+        this.sourceListId = tradeRequest.sourceListId();
+        this.side = tradeRequest.side();
+    }
 }

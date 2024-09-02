@@ -1,5 +1,6 @@
 package com.nnk.springboot.domain;
 
+import com.nnk.springboot.record.RatingRecord;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -27,5 +28,12 @@ public class Rating {
     private String fitchRating;
 
     private Integer orderNumber;
+
+    public Rating(RatingRecord.Api.RatingRequest ratingRequest) {
+        this.moodysRating = ratingRequest.moodysRating();
+        this.sandPRating = ratingRequest.sandPRating();
+        this.fitchRating = ratingRequest.fitchRating();
+        this.orderNumber = ratingRequest.orderNumber();
+    }
 }
 

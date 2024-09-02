@@ -1,5 +1,6 @@
 package com.nnk.springboot.domain;
 
+import com.nnk.springboot.record.RuleNameRecord;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -34,4 +35,13 @@ public class RuleName {
 
     @Size(max = 125)
     private String sqlPart;
+
+    public RuleName(RuleNameRecord.Api.RuleNameRequest ruleNameRequest) {
+        this.name = ruleNameRequest.name();
+        this.description = ruleNameRequest.description();
+        this.json = ruleNameRequest.json();
+        this.template = ruleNameRequest.template();
+        this.sqlStr = ruleNameRequest.sqlStr();
+        this.sqlPart = ruleNameRequest.sqlPart();
+    }
 }

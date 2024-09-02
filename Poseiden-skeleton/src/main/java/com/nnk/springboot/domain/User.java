@@ -1,11 +1,18 @@
 package com.nnk.springboot.domain;
 
 
+import com.nnk.springboot.record.UserRecord;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "users")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -57,5 +64,11 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public User(UserRecord.Api.UserRequest userRequest) {
+        this.username = userRequest.username();
+        this.password = userRequest.password();
+        this.fullname = userRequest.fullname();
     }
 }
