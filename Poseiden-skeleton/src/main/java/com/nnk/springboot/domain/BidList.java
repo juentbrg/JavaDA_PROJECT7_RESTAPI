@@ -74,28 +74,4 @@ public class BidList {
 
     @Size(max = 125)
     private String side;
-
-    public BidList(BidListRecord.Api.BidListRequest bidListRequest) {
-        this.account = bidListRequest.account();
-        this.type = bidListRequest.type();
-        this.bidQuantity = bidListRequest.bidQuantity();
-        this.askQuantity = bidListRequest.askQuantity();
-        this.bid = bidListRequest.bid();
-        this.ask = bidListRequest.ask();
-        this.benchmark = bidListRequest.benchmark();
-        this.bidListDate = bidListRequest.bidListDate();
-        this.commentary = bidListRequest.commentary();
-        this.security = bidListRequest.security();
-        this.status = bidListRequest.status();
-        this.trader = bidListRequest.trader();
-        this.book = bidListRequest.book();
-        this.creationName = bidListRequest.creationName();
-        this.creationDate = LocalDateTime.now();
-        this.revisionName = bidListRequest.revisionName();
-        this.revisionDate = bidListRequest.revisionDate();
-        this.dealName = bidListRequest.dealName();
-        this.dealType = bidListRequest.dealType();
-        this.sourceListId = bidListRequest.sourceListId();
-        this.side = bidListRequest.side();
-    }
 }

@@ -45,9 +45,8 @@ public class RuleNameService {
     }
 
     @Transactional
-    public RuleNameRecord.Vm.RuleNameVm createRuleName(RuleNameRecord.Api.RuleNameRequest ruleNameRequest) {
+    public RuleNameRecord.Vm.RuleNameVm createRuleName(RuleName ruleName) {
         try {
-            RuleName ruleName = new RuleName(ruleNameRequest);
             ruleNameRepository.save(ruleName);
             return new RuleNameRecord.Vm.RuleNameVm(ruleName);
         } catch (Exception e) {
@@ -56,7 +55,7 @@ public class RuleNameService {
     }
 
     @Transactional
-    public RuleNameRecord.Vm.RuleNameVm updateRuleName(int ruleNameId, RuleNameRecord.Api.RuleNameRequest ruleNameRequest) {
+    public RuleNameRecord.Vm.RuleNameVm updateRuleName(int ruleNameId, RuleName ruleNameRequest) {
         Optional<RuleName> ruleNameOpt = ruleNameRepository.findById(ruleNameId);
 
         if (ruleNameOpt.isPresent()) {

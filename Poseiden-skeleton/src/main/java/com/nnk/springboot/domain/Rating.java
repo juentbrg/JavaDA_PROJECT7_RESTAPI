@@ -29,11 +29,5 @@ public class Rating {
 
     private Integer orderNumber;
 
-    public Rating(RatingRecord.Api.RatingRequest ratingRequest) {
-        this.moodysRating = ratingRequest.moodysRating();
-        this.sandPRating = ratingRequest.sandPRating();
-        this.fitchRating = ratingRequest.fitchRating();
-        this.orderNumber = ratingRequest.orderNumber();
-    }
 }
 

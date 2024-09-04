@@ -28,12 +28,4 @@ public class CurvePoint {
     private Double value;
 
     private LocalDateTime creationDate;
-
-    public CurvePoint(CurvePointRecord.Api.CurvePointRequest curvePointRequest) {
-        this.curveId = curvePointRequest.curveId();
-        this.asOfDate = curvePointRequest.asOfDate();
-        this.term = curvePointRequest.term();
-        this.value = curvePointRequest.value();
-        this.creationDate = LocalDateTime.now();
-    }
 }

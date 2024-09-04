@@ -45,9 +45,8 @@ public class RatingService {
     }
 
     @Transactional
-    public RatingRecord.Vm.RatingVm createRating(RatingRecord.Api.RatingRequest ratingRequest) {
+    public RatingRecord.Vm.RatingVm createRating(Rating rating) {
         try {
-            Rating rating = new Rating(ratingRequest);
             ratingRepository.save(rating);
             return new RatingRecord.Vm.RatingVm(rating);
         } catch (Exception e) {
@@ -56,7 +55,7 @@ public class RatingService {
     }
 
     @Transactional
-    public RatingRecord.Vm.RatingVm updateRating(int ratingId, RatingRecord.Api.RatingRequest ratingRequest) {
+    public RatingRecord.Vm.RatingVm updateRating(int ratingId, Rating ratingRequest) {
         Optional<Rating> ratingOpt = ratingRepository.findById(ratingId);
         if (ratingOpt.isPresent()) {
             Rating rating = ratingOpt.get();

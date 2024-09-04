@@ -22,13 +22,4 @@ public interface RatingRecord {
             }
         }
     }
-
-    interface Api {
-        record RatingRequest(
-                String moodysRating,
-                String sandPRating,
-                String fitchRating,
-                Integer orderNumber
-        ){}
-    }
 }

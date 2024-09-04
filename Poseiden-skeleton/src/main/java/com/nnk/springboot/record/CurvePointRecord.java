@@ -27,14 +27,4 @@ public interface CurvePointRecord {
             }
         }
     }
-
-    interface Api {
-
-        record CurvePointRequest (
-                Integer curveId,
-                LocalDateTime asOfDate,
-                Double term,
-                Double value
-        ){}
-    }
 }

@@ -45,12 +45,11 @@ public class BidListService {
     }
 
     @Transactional
-    public BidListRecord.Vm.BidListVm createBidList(BidListRecord.Api.BidListRequest bidListRequest) {
+    public BidListRecord.Vm.BidListVm createBidList(BidList bid) {
         try {
-            if (null != bidListRequest) {
-                BidList bidList = new BidList(bidListRequest);
-                bidListRepository.save(bidList);
-                return new BidListRecord.Vm.BidListVm(bidList);
+            if (null != bid) {
+                bidListRepository.save(bid);
+                return new BidListRecord.Vm.BidListVm(bid);
             }
         } catch (Exception e) {
             throw new RuntimeException("failed to create bid list",e);
@@ -59,7 +58,7 @@ public class BidListService {
     }
 
     @Transactional
-    public BidListRecord.Vm.BidListVm updateBidList(int bidListId, BidListRecord.Api.BidListRequest bidListRequest) {
+    public BidListRecord.Vm.BidListVm updateBidList(int bidListId, BidList bidListRequest) {
         Optional<BidList> bidListOpt = bidListRepository.findById(bidListId);
 
         if (bidListOpt.isPresent()) {

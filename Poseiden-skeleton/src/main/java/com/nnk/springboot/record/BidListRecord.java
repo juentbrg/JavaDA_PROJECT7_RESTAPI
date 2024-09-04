@@ -58,29 +58,4 @@ public interface BidListRecord {
             }
         }
     }
-
-    interface Api {
-        record BidListRequest(
-                String account,
-                String type,
-                Double bidQuantity,
-                Double askQuantity,
-                Double bid,
-                Double ask,
-                String benchmark,
-                LocalDateTime bidListDate,
-                String commentary,
-                String security,
-                String status,
-                String trader,
-                String book,
-                String creationName,
-                String revisionName,
-                LocalDateTime revisionDate,
-                String dealName,
-                String dealType,
-                String sourceListId,
-                String side
-        ){}
-    }
 }

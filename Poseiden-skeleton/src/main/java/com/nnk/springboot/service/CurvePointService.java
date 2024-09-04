@@ -44,9 +44,8 @@ public class CurvePointService {
     }
 
     @Transactional
-    public CurvePointRecord.Vm.CurvePointVm createCurvePoint(CurvePointRecord.Api.CurvePointRequest curvePointRequest) {
+    public CurvePointRecord.Vm.CurvePointVm createCurvePoint(CurvePoint curvePoint) {
         try {
-            CurvePoint curvePoint = new CurvePoint(curvePointRequest);
             curvePointRepository.save(curvePoint);
             return new CurvePointRecord.Vm.CurvePointVm(curvePoint);
         } catch (Exception e) {
@@ -55,7 +54,7 @@ public class CurvePointService {
     }
 
     @Transactional
-    public CurvePointRecord.Vm.CurvePointVm updateCurvePoint(int id, CurvePointRecord.Api.CurvePointRequest curvePointRequest) {
+    public CurvePointRecord.Vm.CurvePointVm updateCurvePoint(int id, CurvePoint curvePointRequest) {
         Optional<CurvePoint> curvePointOpt = curvePointRepository.findById(id);
         if (curvePointOpt.isPresent()) {
             CurvePoint curvePoint = curvePointOpt.get();

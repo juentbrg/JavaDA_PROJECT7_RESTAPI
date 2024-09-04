@@ -27,17 +27,4 @@ public interface RuleNameRecord {
             }
         }
     }
-
-    interface Api {
-
-        record RuleNameRequest(
-                String name,
-                String description,
-                String json,
-                String template,
-                String sqlStr,
-                String sqlPart
-        ){}
-
-    }
 }

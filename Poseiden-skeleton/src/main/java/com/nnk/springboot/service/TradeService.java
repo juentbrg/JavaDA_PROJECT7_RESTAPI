@@ -22,7 +22,7 @@ public class TradeService {
     }
 
     @Transactional(readOnly = true)
-    public List<TradeRecord.Vm.TradeVm> findAllTrade() {
+    public List<TradeRecord.Vm.TradeVm> getAllTrade() {
         List<Trade> tradeList = tradeRepository.findAll();
 
         if (tradeList.isEmpty())
@@ -35,7 +35,7 @@ public class TradeService {
     }
 
     @Transactional(readOnly = true)
-    public TradeRecord.Vm.TradeVm findTradeById(int id) {
+    public TradeRecord.Vm.TradeVm getTradeById(int id) {
         Optional<Trade> tradeOpt = tradeRepository.findById(id);
 
         if (tradeOpt.isPresent())
@@ -45,9 +45,8 @@ public class TradeService {
     }
 
     @Transactional
-    public TradeRecord.Vm.TradeVm createTrade(TradeRecord.Api.TradeRequest tradeRequest) {
+    public TradeRecord.Vm.TradeVm createTrade(Trade trade) {
         try {
-            Trade trade = new Trade(tradeRequest);
             tradeRepository.save(trade);
             return new TradeRecord.Vm.TradeVm(trade);
         } catch (Exception e) {
@@ -56,7 +55,7 @@ public class TradeService {
     }
 
     @Transactional
-    public TradeRecord.Vm.TradeVm updateTrade(int id, TradeRecord.Api.TradeRequest tradeRequest) {
+    public TradeRecord.Vm.TradeVm updateTrade(int id, Trade tradeRequest) {
         Optional<Trade> tradeOpt = tradeRepository.findById(id);
 
         if (tradeOpt.isPresent()) {

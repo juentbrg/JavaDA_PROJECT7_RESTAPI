@@ -56,29 +56,4 @@ public interface TradeRecord {
             }
         }
     }
-
-    interface Api {
-
-        record TradeRequest(
-                String account,
-                String type,
-                Double buyQuantity,
-                Double sellQuantity,
-                Double buyPrice,
-                Double sellPrice,
-                LocalDateTime tradeDate,
-                String security,
-                String status,
-                String trader,
-                String benchmark,
-                String book,
-                String creationName,
-                String revisionName,
-                LocalDateTime revisionDate,
-                String dealName,
-                String dealType,
-                String sourceListId,
-                String side
-        ){}
-    }
 }
