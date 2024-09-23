@@ -25,9 +25,6 @@ public class BidListService {
     public List<BidListRecord.Vm.BidListVm> getAllBidList() {
         List<BidList> allBidList = bidListRepository.findAll();
 
-        if (allBidList.isEmpty())
-            return null;
-
         return allBidList
                 .stream()
                 .map(BidListRecord.Vm.BidListVm::new)
@@ -45,16 +42,15 @@ public class BidListService {
     }
 
     @Transactional
-    public BidListRecord.Vm.BidListVm createBidList(BidList bid) {
+    public void createBidList(BidList bid) {
         try {
             if (null != bid) {
                 bidListRepository.save(bid);
-                return new BidListRecord.Vm.BidListVm(bid);
+                new BidListRecord.Vm.BidListVm(bid);
             }
         } catch (Exception e) {
             throw new RuntimeException("failed to create bid list",e);
         }
-        return null;
     }
 
     @Transactional

@@ -1,11 +1,8 @@
 package com.nnk.springboot.domain;
 
-import com.nnk.springboot.record.BidListRecord;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -14,10 +11,11 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Generated
 public class BidList {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer bidListId;
 
     @NotNull
@@ -74,4 +72,10 @@ public class BidList {
 
     @Size(max = 125)
     private String side;
+
+    public BidList(String account, String type, double bidQuantity) {
+        this.account = account;
+        this.type = type;
+        this.bidQuantity = bidQuantity;
+    }
 }

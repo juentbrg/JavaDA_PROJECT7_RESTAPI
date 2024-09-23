@@ -64,8 +64,8 @@ public class RatingController {
         if (result.hasErrors())
             return "rating/update";
 
-        ratingService.updateRating(id, rating);
-        model.addAttribute("ratings", ratingService.getAllRating());
+        RatingRecord.Vm.RatingVm ratingVm = ratingService.updateRating(id, rating);
+        model.addAttribute("ratings", ratingVm);
 
         return "redirect:/rating/list";
     }

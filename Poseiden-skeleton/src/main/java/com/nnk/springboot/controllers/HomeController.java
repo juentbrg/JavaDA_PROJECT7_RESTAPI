@@ -5,8 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class HomeController
-{
+public class HomeController {
+
 	@RequestMapping("/")
 	public String home(Model model)
 	{
@@ -18,6 +18,4 @@ public class HomeController
 	{
 		return "redirect:/bidList/list";
 	}
-
-
 }

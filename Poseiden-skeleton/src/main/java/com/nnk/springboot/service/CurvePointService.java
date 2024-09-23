@@ -44,10 +44,10 @@ public class CurvePointService {
     }
 
     @Transactional
-    public CurvePointRecord.Vm.CurvePointVm createCurvePoint(CurvePoint curvePoint) {
+    public void createCurvePoint(CurvePoint curvePoint) {
         try {
             curvePointRepository.save(curvePoint);
-            return new CurvePointRecord.Vm.CurvePointVm(curvePoint);
+            new CurvePointRecord.Vm.CurvePointVm(curvePoint);
         } catch (Exception e) {
             throw new RuntimeException("failed to create curve point", e);
         }

@@ -1,7 +1,6 @@
 package com.nnk.springboot.record;
 
 import com.nnk.springboot.domain.RuleName;
-import jakarta.validation.constraints.Size;
 
 public interface RuleNameRecord {
 

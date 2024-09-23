@@ -1,10 +1,7 @@
 package com.nnk.springboot.domain;
 
-import com.nnk.springboot.record.CurvePointRecord;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -13,10 +10,11 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Generated
 public class CurvePoint {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     private Integer curveId;
@@ -28,4 +26,10 @@ public class CurvePoint {
     private Double value;
 
     private LocalDateTime creationDate;
+
+    public CurvePoint(int curveId, double term, double value) {
+        this.curveId = curveId;
+        this.term = term;
+        this.value = value;
+    }
 }

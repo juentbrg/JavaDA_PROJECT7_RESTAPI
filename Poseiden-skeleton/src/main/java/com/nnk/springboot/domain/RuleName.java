@@ -1,21 +1,19 @@
 package com.nnk.springboot.domain;
 
-import com.nnk.springboot.record.RuleNameRecord;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "RuleName")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Generated
 public class RuleName {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @Size(max = 125)
@@ -36,4 +34,12 @@ public class RuleName {
     @Size(max = 125)
     private String sqlPart;
 
+    public RuleName(String ruleName, String description, String json, String template, String sqlStr, String sqlPart) {
+        this.name = ruleName;
+        this.description = description;
+        this.json = json;
+        this.template = template;
+        this.sqlStr = sqlStr;
+        this.sqlPart = sqlPart;
+    }
 }

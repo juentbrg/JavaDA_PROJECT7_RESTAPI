@@ -45,10 +45,10 @@ public class RatingService {
     }
 
     @Transactional
-    public RatingRecord.Vm.RatingVm createRating(Rating rating) {
+    public void createRating(Rating rating) {
         try {
             ratingRepository.save(rating);
-            return new RatingRecord.Vm.RatingVm(rating);
+            new RatingRecord.Vm.RatingVm(rating);
         } catch (Exception e) {
             throw new RuntimeException("failed to create rating", e);
         }

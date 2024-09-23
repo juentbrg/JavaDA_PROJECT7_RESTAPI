@@ -64,8 +64,8 @@ public class RuleNameController {
         if (result.hasErrors())
             return "ruleName/add";
 
-        ruleNameService.updateRuleName(id, ruleName);
-        model.addAttribute("ruleName", ruleNameService.getAllRuleName());
+        RuleNameRecord.Vm.RuleNameVm ruleNameVm = ruleNameService.updateRuleName(id, ruleName);
+        model.addAttribute("ruleName", ruleNameVm);
 
         return "redirect:/ruleName/list";
     }

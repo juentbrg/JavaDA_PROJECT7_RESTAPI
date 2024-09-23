@@ -64,8 +64,8 @@ public class TradeController {
         if (result.hasErrors())
             return "trade/add";
 
-        tradeService.updateTrade(id, trade);
-        model.addAttribute("trade", tradeService.getAllTrade());
+        TradeRecord.Vm.TradeVm tradeVm = tradeService.updateTrade(id, trade);
+        model.addAttribute("trade", tradeVm);
 
         return "redirect:/trade/list";
     }

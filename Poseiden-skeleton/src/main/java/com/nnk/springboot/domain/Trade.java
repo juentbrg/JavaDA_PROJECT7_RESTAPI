@@ -1,11 +1,8 @@
 package com.nnk.springboot.domain;
 
-import com.nnk.springboot.record.TradeRecord;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -14,10 +11,11 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Generated
 public class Trade {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer tradeId;
 
     @NotNull
@@ -71,4 +69,9 @@ public class Trade {
 
     @Size(max = 125)
     private String side;
+
+    public Trade(String account, String type) {
+        this.account = account;
+        this.type = type;
+    }
 }

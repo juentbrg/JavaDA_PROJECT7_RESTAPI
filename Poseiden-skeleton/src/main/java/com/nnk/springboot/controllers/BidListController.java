@@ -60,8 +60,8 @@ public class BidListController {
         if (result.hasErrors())
             return "bidList/update";
 
-        bidListService.updateBidList(id, bidList);
-        model.addAttribute("bidLists", bidListService.getAllBidList());
+        BidListRecord.Vm.BidListVm bidListVm = bidListService.updateBidList(id, bidList);
+        model.addAttribute("bidLists", bidListVm);
 
         return "redirect:/bidList/list";
     }

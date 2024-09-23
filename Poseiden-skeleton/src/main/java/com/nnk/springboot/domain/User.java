@@ -4,18 +4,17 @@ package com.nnk.springboot.domain;
 import com.nnk.springboot.record.UserRecord;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "Users")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Generated
 public class User {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
     @NotBlank(message = "Username is mandatory")
     private String username;
