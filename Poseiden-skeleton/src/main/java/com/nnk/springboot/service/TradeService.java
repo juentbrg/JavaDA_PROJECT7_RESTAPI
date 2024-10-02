@@ -45,10 +45,9 @@ public class TradeService {
     }
 
     @Transactional
-    public TradeRecord.Vm.TradeVm createTrade(Trade trade) {
+    public void createTrade(Trade trade) {
         try {
             tradeRepository.save(trade);
-            return new TradeRecord.Vm.TradeVm(trade);
         } catch (Exception e) {
             throw  new RuntimeException("failed to create transaction", e);
         }

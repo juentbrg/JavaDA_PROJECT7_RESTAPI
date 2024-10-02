@@ -47,7 +47,6 @@ public class CurvePointService {
     public void createCurvePoint(CurvePoint curvePoint) {
         try {
             curvePointRepository.save(curvePoint);
-            new CurvePointRecord.Vm.CurvePointVm(curvePoint);
         } catch (Exception e) {
             throw new RuntimeException("failed to create curve point", e);
         }

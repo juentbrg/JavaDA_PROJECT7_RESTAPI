@@ -46,7 +46,6 @@ public class BidListService {
         try {
             if (null != bid) {
                 bidListRepository.save(bid);
-                new BidListRecord.Vm.BidListVm(bid);
             }
         } catch (Exception e) {
             throw new RuntimeException("failed to create bid list",e);

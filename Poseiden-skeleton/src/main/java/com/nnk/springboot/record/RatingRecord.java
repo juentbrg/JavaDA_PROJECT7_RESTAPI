@@ -7,6 +7,7 @@ public interface RatingRecord {
     interface Vm {
 
         record RatingVm(
+                Integer id,
                 String moodysRating,
                 String sandPRating,
                 String fitchRating,
@@ -14,6 +15,7 @@ public interface RatingRecord {
         ){
             public RatingVm(Rating rating) {
                 this(
+                        rating.getId(),
                         rating.getMoodysRating(),
                         rating.getSandPRating(),
                         rating.getFitchRating(),

@@ -45,10 +45,9 @@ public class RuleNameService {
     }
 
     @Transactional
-    public RuleNameRecord.Vm.RuleNameVm createRuleName(RuleName ruleName) {
+    public void createRuleName(RuleName ruleName) {
         try {
             ruleNameRepository.save(ruleName);
-            return new RuleNameRecord.Vm.RuleNameVm(ruleName);
         } catch (Exception e) {
             throw new RuntimeException("failed to create rule name", e);
         }

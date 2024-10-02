@@ -7,6 +7,7 @@ public interface RuleNameRecord {
     interface Vm {
 
         record RuleNameVm(
+                Integer id,
                 String name,
                 String description,
                 String json,
@@ -16,6 +17,7 @@ public interface RuleNameRecord {
         ){
             public RuleNameVm(RuleName ruleName){
                 this(
+                        ruleName.getId(),
                         ruleName.getName(),
                         ruleName.getDescription(),
                         ruleName.getJson(),

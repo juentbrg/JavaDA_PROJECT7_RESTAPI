@@ -42,9 +42,7 @@ public class CurveController {
             return "curvePoint/add";
 
         curvePointService.createCurvePoint(curvePoint);
-        model.addAttribute("curvePoint", curvePointService.getAllCurvePoints());
-
-        return "curvePoint/add";
+        return "redirect:/curvePoint/list";
     }
 
     @GetMapping("/curvePoint/update/{id}")

@@ -48,7 +48,6 @@ public class RatingService {
     public void createRating(Rating rating) {
         try {
             ratingRepository.save(rating);
-            new RatingRecord.Vm.RatingVm(rating);
         } catch (Exception e) {
             throw new RuntimeException("failed to create rating", e);
         }

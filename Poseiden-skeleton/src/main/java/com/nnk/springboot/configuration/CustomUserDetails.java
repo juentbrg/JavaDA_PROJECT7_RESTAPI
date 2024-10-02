@@ -1,12 +1,15 @@
 package com.nnk.springboot.configuration;
 
 import com.nnk.springboot.domain.User;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 
+@EqualsAndHashCode()
+@Generated
 public class CustomUserDetails implements UserDetails {
     private final User user;
 
@@ -47,9 +50,5 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public String getFullname() {
-        return user.getFullname();
     }
 }

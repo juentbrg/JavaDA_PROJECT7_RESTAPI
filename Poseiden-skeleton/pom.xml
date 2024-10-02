@@ -31,6 +31,7 @@
 		<surefire.version>3.2.5</surefire.version> <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
 		<log4j.version>2.22.1</log4j.version> <!-- https://logging.apache.org/log4j/2.x/maven-artifacts.html -->
 		<surefire.report.version>3.0.0-M1</surefire.report.version> <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-report-plugin -->
+		<thymeleaf-extras-springsecurity.version>3.1.2.RELEASE</thymeleaf-extras-springsecurity.version> <!-- https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity6 -->
 	</properties>
 
 	<dependencies>
@@ -104,6 +105,12 @@
 			<artifactId>log4j-core</artifactId>
 			<version>${log4j.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity6</artifactId>
+			<version>${thymeleaf-extras-springsecurity.version}</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

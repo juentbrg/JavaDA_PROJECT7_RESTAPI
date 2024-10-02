@@ -7,12 +7,14 @@ public interface CurvePointRecord {
     interface Vm {
 
         record CurvePointVm (
+                Integer id,
                 Integer curveId,
                 Double term,
                 Double value
         ){
             public CurvePointVm(CurvePoint curvePoint){
                 this(
+                        curvePoint.getId(),
                         curvePoint.getCurveId(),
                         curvePoint.getTerm(),
                         curvePoint.getValue()

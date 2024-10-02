@@ -7,12 +7,14 @@ public interface BidListRecord {
     interface Vm{
 
         record BidListVm(
+            Integer id,
             String account,
             String type,
             Double bidQuantity
         ){
             public BidListVm(BidList bidList) {
                 this(
+                        bidList.getBidListId(),
                         bidList.getAccount(),
                         bidList.getType(),
                         bidList.getBidQuantity()
