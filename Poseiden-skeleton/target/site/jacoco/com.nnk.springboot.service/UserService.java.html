@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.service</a> &gt; <span class="el_source">UserService.java</span></div><h1>UserService.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.service;
+
+import com.nnk.springboot.domain.User;
+import com.nnk.springboot.record.UserRecord;
+import com.nnk.springboot.repositories.UserRepository;
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
+
+import static com.nnk.springboot.utils.CRUDUtils.getNullPropertyNames;
+
+@Service
+public class UserService {
+
+    private final UserRepository userRepository;
+
+<span class="fc" id="L20">    public UserService(UserRepository userRepository) {</span>
+<span class="fc" id="L21">        this.userRepository = userRepository;</span>
+<span class="fc" id="L22">    }</span>
+
+    @Transactional(readOnly = true)
+    public List&lt;UserRecord.Vm.UserVm&gt; findAllUSer() {
+<span class="fc" id="L26">        List&lt;User&gt; userList = userRepository.findAll();</span>
+
+<span class="fc bfc" id="L28" title="All 2 branches covered.">        if (userList.isEmpty())</span>
+<span class="fc" id="L29">            return null;</span>
+
+<span class="fc" id="L31">        return userList</span>
+<span class="fc" id="L32">                .stream()</span>
+<span class="fc" id="L33">                .map(UserRecord.Vm.UserVm::new)</span>
+<span class="fc" id="L34">                .toList();</span>
+    }
+
+    @Transactional(readOnly = true)
+    public UserRecord.Vm.UserVm findUserById(int id) {
+<span class="fc" id="L39">        Optional&lt;User&gt; userOpt = userRepository.findById(id);</span>
+
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        if (userOpt.isPresent())</span>
+<span class="fc" id="L42">            return new UserRecord.Vm.UserVm(userOpt.get());</span>
+
+<span class="fc" id="L44">        return null;</span>
+    }
+
+    @Transactional
+    public UserRecord.Vm.UserVm createUser(UserRecord.Api.UserRequest userRequest) {
+        try {
+<span class="fc" id="L50">            User user = new User(userRequest);</span>
+<span class="fc" id="L51">            userRepository.save(user);</span>
+<span class="fc" id="L52">            return new UserRecord.Vm.UserVm(user);</span>
+<span class="fc" id="L53">        } catch (Exception e) {</span>
+<span class="fc" id="L54">            throw new RuntimeException(&quot;failed to create user&quot;, e);</span>
+        }
+    }
+
+    @Transactional
+    public UserRecord.Vm.UserVm updateUser(int id, UserRecord.Api.UserRequest userRequest) {
+<span class="fc" id="L60">        Optional&lt;User&gt; userOpt = userRepository.findById(id);</span>
+
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        if (userOpt.isPresent()) {</span>
+<span class="fc" id="L63">            User user = userOpt.get();</span>
+
+<span class="fc" id="L65">            BeanUtils.copyProperties(userRequest, user, getNullPropertyNames(userRequest));</span>
+<span class="fc" id="L66">            userRepository.save(user);</span>
+<span class="fc" id="L67">            return new UserRecord.Vm.UserVm(user);</span>
+        }
+
+<span class="fc" id="L70">        return null;</span>
+    }
+
+    @Transactional
+    public void deleteUser(int id) {
+        try {
+<span class="fc" id="L76">            userRepository.deleteById(id);</span>
+<span class="fc" id="L77">        } catch (Exception e) {</span>
+<span class="fc" id="L78">            throw new RuntimeException(&quot;failed to delete user&quot;, e);</span>
+<span class="fc" id="L79">        }</span>
+<span class="fc" id="L80">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

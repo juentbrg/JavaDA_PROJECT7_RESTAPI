@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CRUDUtils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.utils</a> &gt; <span class="el_source">CRUDUtils.java</span></div><h1>CRUDUtils.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.utils;
+
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+<span class="nc" id="L9">public abstract class CRUDUtils {</span>
+
+    /**
+     * This method retrieves the names of all properties of an object that have a null value.
+     * It uses the Spring {@link BeanWrapper} to introspect the given object's properties and
+     * check if their values are null. The names of the properties that are null are returned
+     * as an array of strings.
+     *
+     * @param source the object to inspect for null properties
+     * @return an array of property names that have null values. If no properties are null, an empty array is returned.
+     * @throws IllegalArgumentException if the source object is null
+     */
+    public static String[] getNullPropertyNames(Object source) {
+<span class="fc" id="L22">        BeanWrapper src = new BeanWrapperImpl(source);</span>
+<span class="fc" id="L23">        java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();</span>
+<span class="fc" id="L24">        List&lt;String&gt; emptyNames = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L25" title="All 2 branches covered.">        for (java.beans.PropertyDescriptor pd : pds) {</span>
+<span class="fc" id="L26">            Object srcValue = src.getPropertyValue(pd.getName());</span>
+<span class="fc bfc" id="L27" title="All 2 branches covered.">            if (srcValue == null) {</span>
+<span class="fc" id="L28">                emptyNames.add(pd.getName());</span>
+            }
+        }
+<span class="fc" id="L31">        return emptyNames.toArray(new String[0]);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

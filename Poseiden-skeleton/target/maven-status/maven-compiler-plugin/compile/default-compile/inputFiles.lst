@@ -6,7 +6,6 @@
 /home/julien/workspace/JavaDA_PROJECT7_RESTAPI/Poseiden-skeleton/src/main/java/com/nnk/springboot/service/CustomUserDetailsService.java
 /home/julien/workspace/JavaDA_PROJECT7_RESTAPI/Poseiden-skeleton/src/main/java/com/nnk/springboot/service/RuleNameService.java
 /home/julien/workspace/JavaDA_PROJECT7_RESTAPI/Poseiden-skeleton/src/main/java/com/nnk/springboot/controllers/RuleNameController.java
-/home/julien/workspace/JavaDA_PROJECT7_RESTAPI/Poseiden-skeleton/src/main/java/com/nnk/springboot/configuration/ThymeleafConfig.java
 /home/julien/workspace/JavaDA_PROJECT7_RESTAPI/Poseiden-skeleton/src/main/java/com/nnk/springboot/record/BidListRecord.java
 /home/julien/workspace/JavaDA_PROJECT7_RESTAPI/Poseiden-skeleton/src/main/java/com/nnk/springboot/domain/BidList.java
 /home/julien/workspace/JavaDA_PROJECT7_RESTAPI/Poseiden-skeleton/src/main/java/com/nnk/springboot/repositories/TradeRepository.java

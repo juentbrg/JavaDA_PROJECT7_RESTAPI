@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SecurityConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.configuration</a> &gt; <span class="el_source">SecurityConfig.java</span></div><h1>SecurityConfig.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.configuration;
+
+import com.nnk.springboot.service.CustomUserDetailsService;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.thymeleaf.extras.springsecurity6.dialect.SpringSecurityDialect;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    private final CustomUserDetailsService userDetailsService;
+
+    /**
+     * Constructor that injects the custom user details service.
+     *
+     * @param userDetailsService the service to load user-specific data.
+     */
+<span class="nc" id="L28">    public SecurityConfig(CustomUserDetailsService userDetailsService) {</span>
+<span class="nc" id="L29">        this.userDetailsService = userDetailsService;</span>
+<span class="nc" id="L30">    }</span>
+
+    /**
+     * Configures a DAO-based authentication provider.
+     *
+     * @return the configured DaoAuthenticationProvider.
+     */
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+<span class="nc" id="L39">        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();</span>
+<span class="nc" id="L40">        authProvider.setUserDetailsService(userDetailsService);</span>
+<span class="nc" id="L41">        authProvider.setPasswordEncoder(passwordEncoder());</span>
+<span class="nc" id="L42">        return authProvider;</span>
+    }
+
+    /**
+     * Provides a BCrypt password encoder.
+     *
+     * @return the BCryptPasswordEncoder.
+     */
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+<span class="nc" id="L52">        return new BCryptPasswordEncoder();</span>
+    }
+
+    /**
+     * Configures the AuthenticationManager.
+     *
+     * @param authConfig the authentication configuration.
+     * @return the AuthenticationManager.
+     * @throws Exception in case of errors during the configuration.
+     */
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+<span class="nc" id="L64">        return authConfig.getAuthenticationManager();</span>
+    }
+
+    /**
+     * Registers an event publisher to handle session events.
+     *
+     * @return the HttpSessionEventPublisher.
+     */
+    @Bean
+    public HttpSessionEventPublisher httpSessionEventPublisher() {
+<span class="nc" id="L74">        return new HttpSessionEventPublisher();</span>
+    }
+
+    /**
+     * Adds support for Spring Security dialect in Thymeleaf templates.
+     *
+     * @return the SpringSecurityDialect.
+     */
+    @Bean
+    public SpringSecurityDialect springSecurityDialect() {
+<span class="nc" id="L84">        return new SpringSecurityDialect();</span>
+    }
+
+    /**
+     * Configures HTTP security settings, including authorization, login, and logout.
+     *
+     * @param http the HttpSecurity object to configure.
+     * @return the configured SecurityFilterChain.
+     * @throws Exception in case of errors during the configuration.
+     */
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+<span class="nc" id="L96">        http</span>
+<span class="nc" id="L97">                .authorizeHttpRequests(auth -&gt; auth</span>
+<span class="nc" id="L98">                        .requestMatchers(&quot;/css/**&quot;, &quot;/js/**&quot;).permitAll()  // Allow access to static resources</span>
+<span class="nc" id="L99">                        .requestMatchers(&quot;/app/login&quot;, &quot;/app/error&quot;).permitAll()  // Allow access to login and error pages</span>
+<span class="nc" id="L100">                        .requestMatchers(&quot;/app/secure/**&quot;).hasAuthority(&quot;ROLE_ADMIN&quot;)  // Restrict access to secure pages to admins</span>
+<span class="nc" id="L101">                        .anyRequest().hasAnyAuthority(&quot;ROLE_ADMIN&quot;, &quot;ROLE_USER&quot;)  // Allow access to all other pages for users with roles</span>
+                )
+<span class="nc" id="L103">                .formLogin(form -&gt; form</span>
+<span class="nc" id="L104">                        .loginPage(&quot;/app/login&quot;)  // Custom login page</span>
+<span class="nc" id="L105">                        .defaultSuccessUrl(&quot;/bidList/list&quot;, true)  // Redirect after successful login</span>
+<span class="nc" id="L106">                        .permitAll()</span>
+                )
+<span class="nc" id="L108">                .logout(logout -&gt; logout</span>
+<span class="nc" id="L109">                        .logoutRequestMatcher(new AntPathRequestMatcher(&quot;/app/logout&quot;))  // Custom logout URL</span>
+<span class="nc" id="L110">                        .logoutSuccessUrl(&quot;/app/login?logout&quot;)  // Redirect after logout</span>
+<span class="nc" id="L111">                        .permitAll()</span>
+                )
+<span class="nc" id="L113">                .exceptionHandling(exception -&gt; exception</span>
+<span class="nc" id="L114">                        .accessDeniedPage(&quot;/app/error&quot;)  // Custom access denied page</span>
+                );
+
+<span class="nc" id="L117">        return http.build();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

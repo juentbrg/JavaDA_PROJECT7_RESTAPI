@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BidListService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.service</a> &gt; <span class="el_source">BidListService.java</span></div><h1>BidListService.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.service;
+
+import com.nnk.springboot.domain.BidList;
+import com.nnk.springboot.record.BidListRecord;
+import com.nnk.springboot.repositories.BidListRepository;
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
+
+import static com.nnk.springboot.utils.CRUDUtils.getNullPropertyNames;
+
+@Service
+public class BidListService {
+
+    private final BidListRepository bidListRepository;
+
+<span class="fc" id="L20">    public BidListService(BidListRepository bidListRepository) {</span>
+<span class="fc" id="L21">        this.bidListRepository = bidListRepository;</span>
+<span class="fc" id="L22">    }</span>
+
+    @Transactional(readOnly = true)
+    public List&lt;BidListRecord.Vm.BidListVm&gt; getAllBidList() {
+<span class="fc" id="L26">        List&lt;BidList&gt; allBidList = bidListRepository.findAll();</span>
+
+<span class="fc" id="L28">        return allBidList</span>
+<span class="fc" id="L29">                .stream()</span>
+<span class="fc" id="L30">                .map(BidListRecord.Vm.BidListVm::new)</span>
+<span class="fc" id="L31">                .toList();</span>
+    }
+
+    @Transactional(readOnly = true)
+    public BidListRecord.Vm.BidListVm getBidListById(int id) {
+<span class="fc" id="L36">        Optional&lt;BidList&gt; bidListOpt = bidListRepository.findById(id);</span>
+
+<span class="fc bfc" id="L38" title="All 2 branches covered.">        if (bidListOpt.isPresent())</span>
+<span class="fc" id="L39">            return new BidListRecord.Vm.BidListVm(bidListOpt.get());</span>
+
+<span class="fc" id="L41">        return null;</span>
+    }
+
+    @Transactional
+    public void createBidList(BidList bid) {
+        try {
+<span class="pc bpc" id="L47" title="1 of 2 branches missed.">            if (null != bid) {</span>
+<span class="fc" id="L48">                bidListRepository.save(bid);</span>
+            }
+<span class="fc" id="L50">        } catch (Exception e) {</span>
+<span class="fc" id="L51">            throw new RuntimeException(&quot;failed to create bid list&quot;,e);</span>
+<span class="fc" id="L52">        }</span>
+<span class="fc" id="L53">    }</span>
+
+    @Transactional
+    public BidListRecord.Vm.BidListVm updateBidList(int bidListId, BidList bidListRequest) {
+<span class="fc" id="L57">        Optional&lt;BidList&gt; bidListOpt = bidListRepository.findById(bidListId);</span>
+
+<span class="fc bfc" id="L59" title="All 2 branches covered.">        if (bidListOpt.isPresent()) {</span>
+<span class="fc" id="L60">            BidList bidList = bidListOpt.get();</span>
+
+<span class="fc" id="L62">            BeanUtils.copyProperties(bidListRequest, bidList, getNullPropertyNames(bidListRequest));</span>
+<span class="fc" id="L63">            bidListRepository.save(bidList);</span>
+<span class="fc" id="L64">            return new BidListRecord.Vm.BidListVm(bidList);</span>
+        }
+<span class="fc" id="L66">        return null;</span>
+    }
+
+    @Transactional
+    public void deleteBidListById(int id) {
+        try {
+<span class="fc" id="L72">            bidListRepository.deleteById(id);</span>
+<span class="fc" id="L73">        } catch (Exception e) {</span>
+<span class="fc" id="L74">            throw new RuntimeException(&quot;delete bid list failed&quot;, e);</span>
+<span class="fc" id="L75">        }</span>
+<span class="fc" id="L76">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
