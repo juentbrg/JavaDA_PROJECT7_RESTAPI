@@ -45,7 +45,7 @@ public class TradeController {
         tradeService.createTrade(trade);
         model.addAttribute("trade", tradeService.getAllTrade());
 
-        return "trade/add";
+        return "redirect:/trade/list";
     }
 
     @GetMapping("/trade/update/{id}")

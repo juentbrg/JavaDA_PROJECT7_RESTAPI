@@ -13,8 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("app")
 public class LoginController {
 
-    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
-
     @Autowired
     private UserRepository userRepository;
 

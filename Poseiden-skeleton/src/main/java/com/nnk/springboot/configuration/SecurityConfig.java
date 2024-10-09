@@ -107,11 +107,11 @@ public class SecurityConfig {
                 )
                 .logout(logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/app/logout"))  // Custom logout URL
-                        .logoutSuccessUrl("/app/login?logout")  // Redirect after logout
+                        .logoutSuccessUrl("/app/login")  // Redirect after logout
                         .permitAll()
                 )
                 .exceptionHandling(exception -> exception
-                        .accessDeniedPage("/app/error")  // Custom access denied page
+                        .accessDeniedPage("/app/403")  // Custom access denied page
                 );
 
         return http.build();

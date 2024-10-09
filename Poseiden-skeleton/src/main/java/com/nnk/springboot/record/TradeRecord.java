@@ -7,15 +7,17 @@ public interface TradeRecord {
     interface Vm {
 
         record TradeVm(
-                Integer id,
+                Integer tradeId,
                 String account,
-                String type
+                String type,
+                Double buyQuantity
         ){
             public TradeVm(Trade trade){
                 this(
                         trade.getTradeId(),
                         trade.getAccount(),
-                        trade.getType()
+                        trade.getType(),
+                        trade.getBuyQuantity()
                 );
             }
         }

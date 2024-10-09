@@ -46,7 +46,7 @@ public class RatingController {
         ratingService.createRating(rating);
         model.addAttribute("ratings", ratingService.getAllRating());
 
-        return "rating/add";
+        return "redirect:/rating/list";
     }
 
     @GetMapping("/rating/update/{id}")
@@ -56,7 +56,7 @@ public class RatingController {
             model.addAttribute("rating", ratingVm);
             return "rating/update";
         }
-        return "redirect:rating/list";
+        return "redirect:/rating/list";
     }
 
     @PostMapping("/rating/update/{id}")

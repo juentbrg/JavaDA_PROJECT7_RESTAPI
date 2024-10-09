@@ -48,8 +48,8 @@ public class BidListController {
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         BidListRecord.Vm.BidListVm bidListVm = bidListService.getBidListById(id);
-        if (null != bidListVm) {
-            model.addAttribute("bid", bidListVm);
+        if (bidListVm != null) {
+            model.addAttribute("bidList", bidListVm);
             return "bidList/update";
         }
         return "redirect:/bidList/list";

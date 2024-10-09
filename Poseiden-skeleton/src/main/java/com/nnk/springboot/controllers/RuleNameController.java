@@ -45,7 +45,8 @@ public class RuleNameController {
 
         ruleNameService.createRuleName(ruleName);
         model.addAttribute("ruleName", ruleNameService.getAllRuleName());
-        return "ruleName/add";
+
+        return "redirect:/ruleName/list";
     }
 
     @GetMapping("/ruleName/update/{id}")

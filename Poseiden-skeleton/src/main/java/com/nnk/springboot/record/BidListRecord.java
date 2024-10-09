@@ -7,7 +7,7 @@ public interface BidListRecord {
     interface Vm{
 
         record BidListVm(
-            Integer id,
+            Integer bidListId,
             String account,
             String type,
             Double bidQuantity
