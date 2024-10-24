@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+import static com.nnk.springboot.configuration.PasswordValidator.isValidPassword;
 import static com.nnk.springboot.utils.CRUDUtils.getNullPropertyNames;
 
 @Service
@@ -57,12 +58,13 @@ public class UserService {
     }
 
     @Transactional
-    public UserRecord.Vm.UserVm createUser(UserRecord.Api.UserRequest userRequest) {
+    public UserRecord.Vm.UserVm createUser(User user) {
         try {
             logger.info("Creating new user");
-            User user = new User(userRequest);
+            if (!isValidPassword(user.getPassword()))
+                throw new IllegalArgumentException("Password does not meet complexity requirements.");
             userRepository.save(user);
-            logger.debug("User created with id: {}", user.getId());
+            logger.debug("User created");
             return new UserRecord.Vm.UserVm(user);
         } catch (Exception e) {
             logger.error("Failed to create user", e);
@@ -71,13 +73,16 @@ public class UserService {
     }
 
     @Transactional
-    public UserRecord.Vm.UserVm updateUser(int id, UserRecord.Api.UserRequest userRequest) {
+    public UserRecord.Vm.UserVm updateUser(int id, User newUser) {
         logger.info("Updating user with id: {}", id);
+        if (!isValidPassword(newUser.getPassword()))
+            throw new IllegalArgumentException("Password does not meet complexity requirements.");
+
         Optional<User> userOpt = userRepository.findById(id);
 
         if (userOpt.isPresent()) {
             User user = userOpt.get();
-            BeanUtils.copyProperties(userRequest, user, getNullPropertyNames(userRequest));
+            BeanUtils.copyProperties(newUser, user, getNullPropertyNames(newUser));
             userRepository.save(user);
             logger.debug("User updated with id: {}", id);
             return new UserRecord.Vm.UserVm(user);

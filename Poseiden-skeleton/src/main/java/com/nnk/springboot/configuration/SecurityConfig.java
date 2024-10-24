@@ -14,6 +14,8 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.thymeleaf.extras.springsecurity6.dialect.SpringSecurityDialect;
 
+import java.util.regex.Pattern;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {

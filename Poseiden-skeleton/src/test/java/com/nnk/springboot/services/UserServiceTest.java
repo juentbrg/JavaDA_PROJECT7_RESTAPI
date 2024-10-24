@@ -84,12 +84,11 @@ public class UserServiceTest {
 
     @Test
     public void createUserOkTest() {
-        UserRecord.Api.UserRequest userRequest = mock(UserRecord.Api.UserRequest.class);
         User user = mock(User.class);
 
         when(userRepository.save(any(User.class))).thenReturn(user);
 
-        UserRecord.Vm.UserVm result = userService.createUser(userRequest);
+        UserRecord.Vm.UserVm result = userService.createUser(user);
 
         assertEquals(new UserRecord.Vm.UserVm(user), result);
         verify(userRepository, times(1)).save(any(User.class));
@@ -97,23 +96,22 @@ public class UserServiceTest {
 
     @Test
     public void createUserThrowErrorTest() {
-        UserRecord.Api.UserRequest userRequest = mock(UserRecord.Api.UserRequest.class);
+        User user = mock(User.class);
 
         when(userRepository.save(any(User.class))).thenThrow(new RuntimeException());
 
-        assertThrows(RuntimeException.class, () -> userService.createUser(userRequest));
+        assertThrows(RuntimeException.class, () -> userService.createUser(user));
     }
 
     @Test
     public void updateUserOkTest() {
         int userId = 1;
         User user = mock(User.class);
-        UserRecord.Api.UserRequest userRequest = mock(UserRecord.Api.UserRequest.class);
 
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
         when(userRepository.save(user)).thenReturn(user);
 
-        UserRecord.Vm.UserVm result = userService.updateUser(userId, userRequest);
+        UserRecord.Vm.UserVm result = userService.updateUser(userId, user);
 
         assertEquals(new UserRecord.Vm.UserVm(user), result);
         verify(userRepository, times(1)).save(user);
@@ -122,11 +120,11 @@ public class UserServiceTest {
     @Test
     public void updateUserNotFoundTest() {
         int userId = 1;
-        UserRecord.Api.UserRequest userRequest = mock(UserRecord.Api.UserRequest.class);
+        User user = mock(User.class);
 
         when(userRepository.findById(userId)).thenReturn(Optional.empty());
 
-        UserRecord.Vm.UserVm result = userService.updateUser(userId, userRequest);
+        UserRecord.Vm.UserVm result = userService.updateUser(userId, user);
 
         assertNull(result);
         verify(userRepository, never()).save(any(User.class));
